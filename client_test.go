@@ -16,10 +16,7 @@ import (
 type testcase struct {
 	status int
 	mock   string
-
-	expectedPath string
-	expectedBody map[string][]string
-	f            func(*Client, context.Context) error
+	f      func(*Client, context.Context) error
 }
 
 var (

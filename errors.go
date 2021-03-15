@@ -17,9 +17,7 @@ func (se *APIError) Len() int {
 
 func (se *APIError) Errors() []string {
 	var errs []string
-	for _, e := range se.errs {
-		errs = append(errs, e)
-	}
+	errs = append(errs, se.errs...)
 	for k, vs := range se.errMap {
 		for _, v := range vs {
 			errs = append(errs, fmt.Sprintf("%s: %s", k, v))
@@ -30,7 +28,7 @@ func (se *APIError) Errors() []string {
 
 func (se *APIError) UnmarshalJSON(data []byte) error {
 	var err error
-	if err := json.Unmarshal(data, &se.errs); err != nil {
+	if err = json.Unmarshal(data, &se.errs); err != nil {
 		err = json.Unmarshal(data, &se.errMap)
 	}
 	if err != nil {
